@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from example import views
+from django.urls import path, include
+
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
+    path(r'api-token-auth/', obtain_jwt_token),
+    path(r'api-token-refresh/', refresh_jwt_token),
+    path(r'', include('rxitapp.urls')),
 ]
